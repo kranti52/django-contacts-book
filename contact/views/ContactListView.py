@@ -12,13 +12,10 @@ class ContactListView(APIView):
 
     def get(self, request):
         filter_email = request.GET.get('email')
-        filter_name = request.GET.get('name')
         try:
             contacts = Contact.objects.filter(user=request.user)
             if filter_email:
                 contacts = contacts.filter(contact_email_address__email_address=filter_email)
-            # if filter_name:
-            #     contacts = contacts.filter(full_name=filter_name)
             contacts = contacts.order_by('id')
             paginator = Paginator(contacts, 10)
         except Contact.DoesNotExist:

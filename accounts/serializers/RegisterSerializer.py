@@ -6,7 +6,7 @@ from rest_framework.validators import UniqueValidator
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
         required=True,
-        validators=[UniqueValidator(queryset=User.objects.all())]
+        validators=[UniqueValidator(queryset=User.objects.all(), message="Email already registered.")]
     )
     password = serializers.CharField(min_length=8, write_only=True)
 
